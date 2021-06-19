@@ -44,6 +44,7 @@ loserView :: GameState -> IO ()
 loserView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)  = do
     putStrLn $ "The word was " ++ wrd ++ "." 
     putStrLn "You Lost. someone call the wambulance."
+    playAgainPrompt
     
     
 
@@ -57,8 +58,8 @@ welcomeView = do
 getGameInput :: Input -> IO String
 getGameInput inputType = 
     case inputType of
-        WordInput  -> putStrLn "enter a word" >> getLine
-        GuessInput -> putStrLn "enter a guess" >> getLine
+        WordInput  -> putStrLn "enter a word:" >> getLine
+        GuessInput -> putStrLn "enter a guess:" >> getLine
         
 
 
