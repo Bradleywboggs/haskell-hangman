@@ -5,19 +5,19 @@
 
 packages:
 - completed:
-    hackage: rio-0.1.20.0@sha256:fd9be8ec54ed384e220f1d25748684d5047a87fa904e0b139dfe28029501a913,3688
-    pantry-tree:
-      size: 4801
-      sha256: 517b74e58802c262aae41a17cdf0f41607347ddb9dc92443dc12bf6fbe091ce8
-  original:
-    hackage: rio-0.1.20.0
-- completed:
     hackage: process-1.6.9.0@sha256:372de796fea9d40e6d02269d5df466c9b8d641f145fad3c1add59db7baeea19e,2576
     pantry-tree:
       size: 1211
       sha256: 9d21df864535dcc65e11fd108c4678fdadf2d53bb9ffd1fda142369c797f31c1
   original:
     hackage: process-1.6.9.0
+- completed:
+    hackage: lens-5.0.1@sha256:c97fbe43ae6fe21d73f1a023d776bb05cd492f0afd1b3c3ff43e246af91f6852,15544
+    pantry-tree:
+      size: 8291
+      sha256: 915f23967904b51276fbeb1181eb51b3d958f48273bb10de3914bea8184c0336
+  original:
+    hackage: lens-5.0.1
 snapshots:
 - completed:
     size: 585393

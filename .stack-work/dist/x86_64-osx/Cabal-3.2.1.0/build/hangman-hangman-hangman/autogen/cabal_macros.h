@@ -111,7 +111,7 @@
 #endif /* MIN_TOOL_VERSION_runghc */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "hangman-hangman-hangman-0.1.0.0-BtzE8Sg0FGuCVDji80IFTs-hangman-hangman-hangman"
+#define CURRENT_COMPONENT_ID "hangman-hangman-hangman-0.1.0.0-1MGxMBlkK85ADize9qZ1iQ-hangman-hangman-hangman"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

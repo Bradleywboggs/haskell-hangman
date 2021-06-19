@@ -11,8 +11,8 @@ clearScreen = do
   _ <- SP.system "reset"
   return ()
 
-display :: GameState -> IO ()
-display gamestate = print gamestate
+gameView :: GameState -> IO ()
+gameView gamestate = print gamestate
 
 winnerView :: GameState -> IO ()
 winnerView gamestate  = undefined
@@ -20,11 +20,11 @@ winnerView gamestate  = undefined
 loserView :: GameState -> IO ()
 loserView gamestate  = undefined
 
-printWelcome :: IO ()
-printWelcome = putStrLn "Welcome to Hangman!"
+welcomeView :: IO ()
+welcomeView = putStrLn "Welcome to Hangman!"
 
-requestWordInput :: Input -> IO String
-requestWordInput inputType = 
+getGameInput :: Input -> IO String
+getGameInput inputType = 
     case inputType of
         WordInput  -> putStrLn "enter a word" >> getLine
         GuessInput -> putStrLn "enter a guess" >> getLine
@@ -39,14 +39,17 @@ runGame gamestate = do
         GameState _ True _ _ _ _ _ ->  winnerView gamestate 
         -- Base case 2: Loser (guesses == 0)
         GameState 0 _ _ _ _ _ _    ->  loserView  gamestate 
+        -- Otherwise, display the current gamestate,
+        -- get a guess, 
+        -- update state from the guess,
+        -- and then recurse till we hit a base case
         _                          ->  do 
-            guess <- display gamestate >> requestWordInput GuessInput <&> inputToGuess
-            runGame $ updateGameState guess gamestate -- continue the game and update state from the guess,
-                                                      -- then recurse till we hit a base case
+            guess <- gameView gamestate >> getGameInput GuessInput <&> inputToGuess
+            runGame $ updateGameState guess gamestate 
 
 
 main :: IO ()
 main = do
-   printWelcome
-   word <- requestWordInput WordInput <&> toHangmanWord
+   welcomeView
+   word <- getGameInput WordInput <&> toHangmanWord
    runGame $ initGameState word

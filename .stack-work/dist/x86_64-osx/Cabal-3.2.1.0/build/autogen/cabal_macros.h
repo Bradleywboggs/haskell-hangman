@@ -22,6 +22,17 @@
   (major1) == 4 && (major2) == 14 && (minor) <= 1)
 #endif /* MIN_VERSION_base */
 
+/* package lens-5.0.1 */
+#ifndef VERSION_lens
+#define VERSION_lens "5.0.1"
+#endif /* VERSION_lens */
+#ifndef MIN_VERSION_lens
+#define MIN_VERSION_lens(major1,major2,minor) (\
+  (major1) <  5 || \
+  (major1) == 5 && (major2) <  0 || \
+  (major1) == 5 && (major2) == 0 && (minor) <= 1)
+#endif /* MIN_VERSION_lens */
+
 /* package process-1.6.9.0 */
 #ifndef VERSION_process
 #define VERSION_process "1.6.9.0"
@@ -32,17 +43,6 @@
   (major1) == 1 && (major2) <  6 || \
   (major1) == 1 && (major2) == 6 && (minor) <= 9)
 #endif /* MIN_VERSION_process */
-
-/* package rio-0.1.20.0 */
-#ifndef VERSION_rio
-#define VERSION_rio "0.1.20.0"
-#endif /* VERSION_rio */
-#ifndef MIN_VERSION_rio
-#define MIN_VERSION_rio(major1,major2,minor) (\
-  (major1) <  0 || \
-  (major1) == 0 && (major2) <  1 || \
-  (major1) == 0 && (major2) == 1 && (minor) <= 20)
-#endif /* MIN_VERSION_rio */
 
 /* tool gcc-12.0.0 */
 #ifndef TOOL_VERSION_gcc
@@ -133,10 +133,10 @@
 #endif /* MIN_TOOL_VERSION_runghc */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "hangman-hangman-hangman-0.1.0.0-2804piaM9BJHkocjjIIut7"
+#define CURRENT_PACKAGE_KEY "hangman-hangman-hangman-0.1.0.0-EyLwYkn8EtT4koxxVZVwaA"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "hangman-hangman-hangman-0.1.0.0-2804piaM9BJHkocjjIIut7"
+#define CURRENT_COMPONENT_ID "hangman-hangman-hangman-0.1.0.0-EyLwYkn8EtT4koxxVZVwaA"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

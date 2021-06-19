@@ -1,4 +1,6 @@
 module Lib where
+{-# LANGUAGE Datakinds#-}
+import Data.Char  (toLower)
 
 data Input = GuessInput | WordInput 
 
@@ -6,7 +8,7 @@ newtype HangmanWord =
       HangmanWord {word :: String} deriving (Eq, Show)
 
 toHangmanWord :: String -> HangmanWord
-toHangmanWord word = HangmanWord {word = word}
+toHangmanWord word = HangmanWord {word = toLower <$> word}
 
 type Blanks = String
 
@@ -31,6 +33,7 @@ data GameState = GameState
       , blanks :: [Char]
       } deriving (Show, Eq)
 
+
 initGameState :: HangmanWord -> GameState 
 initGameState (HangmanWord word) = GameState 
       {remainingGuesses = 9
@@ -43,12 +46,12 @@ initGameState (HangmanWord word) = GameState
       }
 
 updateGameState :: Guess -> GameState -> GameState
-updateGameState guess (GameState remainingGuesses isWinner wrongLetters guessedLetters message hangmanword blanks ) =
-      case guess of
-            EmptyGuess    -> undefined
-            LetterGuess l -> undefined 
-            WordGuess   w -> undefined
+updateGameState (LetterGuess l) gamestate = undefined 
+updateGameState (WordGuess w) gamestate = undefined
+updateGameState EmptyGuess gamestate = undefined
 
+updateMessage :: String -> GameState -> GameState
+updateMessage msg (GameState guesses isWinner wrong guessed message word blanks) = GameState guesses isWinner wrong guessed msg word blanks 
 
 updateBlanks :: Guess -> HangmanWord -> Blanks -> Blanks
 updateBlanks guess (HangmanWord word) blanks  = undefined

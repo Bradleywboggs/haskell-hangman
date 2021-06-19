@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/76de5b333ed82c804eb4253aa606582b7215b7406524af73ab0c5dbdad8c7919/8.10.4/bin"
-libdir     = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/76de5b333ed82c804eb4253aa606582b7215b7406524af73ab0c5dbdad8c7919/8.10.4/lib/x86_64-osx-ghc-8.10.4/hangman-hangman-hangman-0.1.0.0-2804piaM9BJHkocjjIIut7"
-dynlibdir  = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/76de5b333ed82c804eb4253aa606582b7215b7406524af73ab0c5dbdad8c7919/8.10.4/lib/x86_64-osx-ghc-8.10.4"
-datadir    = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/76de5b333ed82c804eb4253aa606582b7215b7406524af73ab0c5dbdad8c7919/8.10.4/share/x86_64-osx-ghc-8.10.4/hangman-hangman-hangman-0.1.0.0"
-libexecdir = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/76de5b333ed82c804eb4253aa606582b7215b7406524af73ab0c5dbdad8c7919/8.10.4/libexec/x86_64-osx-ghc-8.10.4/hangman-hangman-hangman-0.1.0.0"
-sysconfdir = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/76de5b333ed82c804eb4253aa606582b7215b7406524af73ab0c5dbdad8c7919/8.10.4/etc"
+bindir     = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/7adaeaca5c444f44075c1ff9f4492ec121dbd135e582709f9bf92e39ae46da6d/8.10.4/bin"
+libdir     = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/7adaeaca5c444f44075c1ff9f4492ec121dbd135e582709f9bf92e39ae46da6d/8.10.4/lib/x86_64-osx-ghc-8.10.4/hangman-hangman-hangman-0.1.0.0-EyLwYkn8EtT4koxxVZVwaA"
+dynlibdir  = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/7adaeaca5c444f44075c1ff9f4492ec121dbd135e582709f9bf92e39ae46da6d/8.10.4/lib/x86_64-osx-ghc-8.10.4"
+datadir    = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/7adaeaca5c444f44075c1ff9f4492ec121dbd135e582709f9bf92e39ae46da6d/8.10.4/share/x86_64-osx-ghc-8.10.4/hangman-hangman-hangman-0.1.0.0"
+libexecdir = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/7adaeaca5c444f44075c1ff9f4492ec121dbd135e582709f9bf92e39ae46da6d/8.10.4/libexec/x86_64-osx-ghc-8.10.4/hangman-hangman-hangman-0.1.0.0"
+sysconfdir = "/Users/bboggs/Developer/projects/haskell/projects/hangman/.stack-work/install/x86_64-osx/7adaeaca5c444f44075c1ff9f4492ec121dbd135e582709f9bf92e39ae46da6d/8.10.4/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "hangman_hangman_hangman_bindir") (\_ -> return bindir)
