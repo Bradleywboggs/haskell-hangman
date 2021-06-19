@@ -1,6 +1,9 @@
 module Lib where
-{-# LANGUAGE Datakinds#-}
+
 import Data.Char  (toLower)
+import Data.List (elemIndices, foldl')
+import Data.Foldable 
+import Data.Sequence as S
 
 data Input = GuessInput | WordInput 
 
@@ -19,8 +22,8 @@ data Guess =
 
 inputToGuess :: String -> Guess
 inputToGuess ""     = EmptyGuess
-inputToGuess [l]    = LetterGuess l
-inputToGuess (l:ls) = WordGuess (l:ls)
+inputToGuess [l]    = LetterGuess $ toLower l
+inputToGuess (l:ls) = WordGuess $ toLower <$> (l:ls)
 
 
 data GameState = GameState
@@ -47,20 +50,32 @@ initGameState (HangmanWord word) = GameState
 
 updateGameState :: Guess -> GameState -> GameState
 updateGameState EmptyGuess gamestate = updateMessage "Please enter an actual guess dummy" gamestate
-updateGameState (LetterGuess l) gamestate = undefined 
-updateGameState (WordGuess w) (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = 
-      if  w == wrd
-            then GameState remainingGuesses True wrongLetters guessedLetters msg (HangmanWord wrd) blanks 
-            else GameState (remainingGuesses - 1) isWinner wrongLetters guessedLetters "Incorrect" (HangmanWord wrd) blanks 
 
+updateGameState (LetterGuess l) (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)
+      | l `elem` guessedLetters = updateMessage "guessing the same thing won't help you win. guess another letter!" (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)
+      | l `notElem` wrd         = GameState (remainingGuesses - 1) isWinner (l:wrongLetters) (l:guessedLetters) "wrong wrong mr. tong" (HangmanWord wrd) blanks
+      | otherwise               = updateIsWinner $ GameState remainingGuesses isWinner wrongLetters (l:guessedLetters) "you are right" (HangmanWord wrd) (updateBlanks l wrd blanks)
 
-updateIsWinner :: GameState -> GameState
-updateIsWinner (GameState guesses isWinner wrong guessed message word blanks) = (GameState guesses (not isWinner) wrong guessed message word blanks)
+updateGameState (WordGuess w) (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) 
+      |  w == wrd  = GameState remainingGuesses True wrongLetters guessedLetters msg (HangmanWord wrd) blanks 
+      |  otherwise =  GameState (remainingGuesses - 1) isWinner wrongLetters guessedLetters "most wrong person ever" (HangmanWord wrd) blanks 
+
 updateMessage :: String -> GameState -> GameState
 updateMessage msg (GameState guesses isWinner wrong guessed message word blanks) = GameState guesses isWinner wrong guessed msg word blanks 
 
-updateBlanks :: Guess -> HangmanWord -> Blanks -> Blanks
-updateBlanks guess (HangmanWord word) blanks  = undefined
+updateIsWinner :: GameState -> GameState
+updateIsWinner (GameState guesses isWinner wrong guessed message (HangmanWord word) blanks) 
+    | word == blanks = GameState guesses True wrong guessed message (HangmanWord word) blanks
+    | otherwise      = GameState guesses isWinner wrong guessed message (HangmanWord word) blanks
+
+updateBlanks :: Char -> String -> String -> String
+updateBlanks l wrd blanks  =  toList $ S.mapWithIndex (
+      \idx x -> 
+            if idx `elem` elemIndices l wrd
+                  then l
+                  else x
+                  ) (S.fromList blanks)
+
 
 
 

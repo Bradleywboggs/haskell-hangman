@@ -22,6 +22,17 @@
   (major1) == 4 && (major2) == 14 && (minor) <= 1)
 #endif /* MIN_VERSION_base */
 
+/* package containers-0.6.2.1 */
+#ifndef VERSION_containers
+#define VERSION_containers "0.6.2.1"
+#endif /* VERSION_containers */
+#ifndef MIN_VERSION_containers
+#define MIN_VERSION_containers(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  6 || \
+  (major1) == 0 && (major2) == 6 && (minor) <= 2)
+#endif /* MIN_VERSION_containers */
+
 /* package lens-5.0.1 */
 #ifndef VERSION_lens
 #define VERSION_lens "5.0.1"
@@ -133,10 +144,10 @@
 #endif /* MIN_TOOL_VERSION_runghc */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "hangman-hangman-hangman-0.1.0.0-EyLwYkn8EtT4koxxVZVwaA"
+#define CURRENT_PACKAGE_KEY "hangman-hangman-hangman-0.1.0.0-HIu0fyOOjgS46APudENQTj"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "hangman-hangman-hangman-0.1.0.0-EyLwYkn8EtT4koxxVZVwaA"
+#define CURRENT_COMPONENT_ID "hangman-hangman-hangman-0.1.0.0-HIu0fyOOjgS46APudENQTj"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

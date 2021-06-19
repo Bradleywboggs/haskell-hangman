@@ -1,3 +1,6 @@
 .stack-work
 dist
 dist-newstyle
+.ghc
+*.hi
+*.o

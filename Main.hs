@@ -12,13 +12,37 @@ clearScreen = do
   return ()
 
 gameView :: GameState -> IO ()
-gameView gamestate = print gamestate
+gameView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
+    putStrLn msg
+    putStrLn ""
+    putStrLn $ "You have " ++ show remainingGuesses ++ " guesses remaining."
+    putStrLn ""
+    putStrLn $ "Wrong Guesses: " ++ wrongLetters
+    putStrLn ""
+    putStrLn $ foldl (\accum x -> accum ++ "    " ++ x) blanks []
 
 winnerView :: GameState -> IO ()
-winnerView gamestate  = putStrLn "Winner"
+winnerView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
+    putStrLn "Winner!"
+    putStrLn ""
+    putStrLn $ "The word was " ++ wrd ++ "."
+    answer <- putStrLn "Would you like to play again? (Y/n)" >> getLine
+    case answer of
+        []  -> main
+        "y" -> main
+        _ -> putStrLn "Goodbye"
 
 loserView :: GameState -> IO ()
-loserView gamestate  = putStrLn "LOSER!"
+loserView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)  = do
+    putStrLn $ "The word was " ++ wrd ++ "." 
+    putStrLn "You Lost. someone call the wambulance."
+    answer <- putStrLn "Would you like to play again?" >> getLine
+    case answer of
+        "y" -> main
+        _ -> putStrLn "Goodbye"
+    
+    
+    
 
 welcomeView :: IO ()
 welcomeView = putStrLn "Welcome to Hangman!"
