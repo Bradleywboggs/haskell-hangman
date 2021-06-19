@@ -1,6 +1,6 @@
 module Lib where
 
-import Data.Char  (toLower)
+import Data.Char  (toLower, isLetter)
 import Data.List (elemIndices, foldl')
 import Data.Foldable 
 import Data.Sequence as S
@@ -18,12 +18,17 @@ type Blanks = String
 data Guess =  
       WordGuess {w :: [Char]} 
       | LetterGuess {l :: Char} 
-      | EmptyGuess deriving (Show, Eq)
+      | EmptyGuess 
+      | InvalidGuess deriving (Show, Eq)
 
 inputToGuess :: String -> Guess
-inputToGuess ""     = EmptyGuess
-inputToGuess [l]    = LetterGuess $ toLower l
-inputToGuess (l:ls) = WordGuess $ toLower <$> (l:ls)
+inputToGuess ""             =  EmptyGuess
+inputToGuess [l]    
+      | isLetter l          = LetterGuess $ toLower l 
+      | otherwise           = InvalidGuess
+inputToGuess (l:ls) 
+      | all isLetter (l:ls) = WordGuess $ toLower <$> (l:ls) 
+      | otherwise           = InvalidGuess
 
 
 data GameState = GameState
@@ -50,6 +55,7 @@ initGameState (HangmanWord word) = GameState
 
 updateGameState :: Guess -> GameState -> GameState
 updateGameState EmptyGuess gamestate = updateMessage "Please enter an actual guess dummy" gamestate
+updateGameState InvalidGuess gamestate = updateMessage "Please only enter valid ascii letters" gamestate
 
 updateGameState (LetterGuess l) (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)
       | l `elem` guessedLetters = updateMessage "guessing the same thing won't help you win. guess another letter!" (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)
