@@ -15,10 +15,10 @@ gameView :: GameState -> IO ()
 gameView gamestate = print gamestate
 
 winnerView :: GameState -> IO ()
-winnerView gamestate  = undefined
+winnerView gamestate  = putStrLn "Winner"
 
 loserView :: GameState -> IO ()
-loserView gamestate  = undefined
+loserView gamestate  = putStrLn "LOSER!"
 
 welcomeView :: IO ()
 welcomeView = putStrLn "Welcome to Hangman!"

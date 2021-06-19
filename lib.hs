@@ -46,10 +46,16 @@ initGameState (HangmanWord word) = GameState
       }
 
 updateGameState :: Guess -> GameState -> GameState
+updateGameState EmptyGuess gamestate = updateMessage "Please enter an actual guess dummy" gamestate
 updateGameState (LetterGuess l) gamestate = undefined 
-updateGameState (WordGuess w) gamestate = undefined
-updateGameState EmptyGuess gamestate = undefined
+updateGameState (WordGuess w) (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = 
+      if  w == wrd
+            then GameState remainingGuesses True wrongLetters guessedLetters msg (HangmanWord wrd) blanks 
+            else GameState (remainingGuesses - 1) isWinner wrongLetters guessedLetters "Incorrect" (HangmanWord wrd) blanks 
 
+
+updateIsWinner :: GameState -> GameState
+updateIsWinner (GameState guesses isWinner wrong guessed message word blanks) = (GameState guesses (not isWinner) wrong guessed message word blanks)
 updateMessage :: String -> GameState -> GameState
 updateMessage msg (GameState guesses isWinner wrong guessed message word blanks) = GameState guesses isWinner wrong guessed msg word blanks 
 
