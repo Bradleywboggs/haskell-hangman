@@ -11,6 +11,15 @@ clearScreen = do
   _ <- SP.system "reset"
   return ()
 
+playAgainPrompt :: IO ()
+playAgainPrompt = do
+    answer <- putStrLn "Would you like to play again? (Y/n)" >> getLine
+    case answer of
+        []  -> main
+        "y" -> main
+        "Y" -> main
+        _   -> putStrLn "Goodbye."
+
 gameView :: GameState -> IO ()
 gameView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
     putStrLn msg
@@ -20,32 +29,30 @@ gameView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (H
     putStrLn $ "Wrong Guesses: " ++ wrongLetters
     putStrLn ""
     putStrLn $ foldl (\accum x -> accum ++ "    " ++ x) blanks []
+    putStrLn ""
+
+    
 
 winnerView :: GameState -> IO ()
 winnerView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
     putStrLn "Winner!"
     putStrLn ""
     putStrLn $ "The word was " ++ wrd ++ "."
-    answer <- putStrLn "Would you like to play again? (Y/n)" >> getLine
-    case answer of
-        []  -> main
-        "y" -> main
-        _ -> putStrLn "Goodbye"
+    playAgainPrompt
 
 loserView :: GameState -> IO ()
 loserView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)  = do
     putStrLn $ "The word was " ++ wrd ++ "." 
     putStrLn "You Lost. someone call the wambulance."
-    answer <- putStrLn "Would you like to play again?" >> getLine
-    case answer of
-        "y" -> main
-        _ -> putStrLn "Goodbye"
-    
     
     
 
 welcomeView :: IO ()
-welcomeView = putStrLn "Welcome to Hangman!"
+welcomeView = do
+    clearScreen
+    putStrLn "Welcome to Hangman!"
+    putStrLn ""
+    putStrLn ""
 
 getGameInput :: Input -> IO String
 getGameInput inputType = 
