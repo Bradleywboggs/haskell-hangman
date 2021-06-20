@@ -2,16 +2,19 @@ module Lib where
 
 import Data.Char  (toLower, isLetter)
 import Data.List (elemIndices, foldl')
-import Data.Foldable 
-import Data.Sequence as S
+import Data.Foldable ( Foldable(toList) ) 
+import Data.Sequence as S ( fromList, mapWithIndex )
 
 data Input = GuessInput | WordInput 
 
-newtype HangmanWord =  
-      HangmanWord {word :: String} deriving (Eq, Show)
+newtype HangmanWord =  HangmanWord String deriving (Eq, Show)
 
-toHangmanWord :: String -> HangmanWord
-toHangmanWord word = HangmanWord {word = toLower <$> word}
+toHangmanWord :: String -> Either String HangmanWord
+toHangmanWord word 
+   | word == []                      = Left "You didn't enter a word. Please try again."
+   | not $ all isLetter word         = Left "Only letters are valid entries. Please try again."
+   | otherwise                       = Right $ HangmanWord $ toLower <$> word
+   
 
 type Blanks = String
 

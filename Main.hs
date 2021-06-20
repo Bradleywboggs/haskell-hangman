@@ -32,7 +32,6 @@ gameView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (H
     putStrLn ""
 
 
-
 winnerView :: GameState -> IO ()
 winnerView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
     putStrLn "Winner!"
@@ -40,12 +39,12 @@ winnerView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg 
     putStrLn $ "The word was " ++ wrd ++ "."
     playAgainPrompt
 
+
 loserView :: GameState -> IO ()
 loserView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)  = do
     putStrLn $ "The word was " ++ wrd ++ "."
     putStrLn "You Lost. someone call the wambulance."
     playAgainPrompt
-
 
 
 welcomeView :: IO ()
@@ -55,11 +54,19 @@ welcomeView = do
     putStrLn ""
     putStrLn ""
 
+
 getGameInput :: Input -> IO String
 getGameInput inputType =
     case inputType of
         WordInput  -> putStrLn "enter a word:" >> getLine
         GuessInput -> putStrLn "enter a guess:" >> getLine
+
+start :: IO ()
+start = do
+   word <- getGameInput WordInput <&> toHangmanWord
+   case word of
+       Right (HangmanWord word) -> runGame $ initGameState (HangmanWord word)
+       Left error -> putStrLn error >> start
 
 
 
@@ -83,5 +90,4 @@ runGame gamestate = do
 main :: IO ()
 main = do
    welcomeView
-   word <- getGameInput WordInput <&> toHangmanWord
-   runGame $ initGameState word
+   start
