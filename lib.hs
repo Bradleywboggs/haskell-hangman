@@ -16,7 +16,7 @@ toHangmanWord word = HangmanWord {word = toLower <$> word}
 type Blanks = String
 
 data Guess =  
-      WordGuess {w :: [Char]} 
+      WordGuess     {w :: [Char]} 
       | LetterGuess {l :: Char} 
       | EmptyGuess 
       | InvalidGuess deriving (Show, Eq)
