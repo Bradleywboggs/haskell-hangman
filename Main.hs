@@ -66,7 +66,7 @@ start = do
    word <- getGameInput WordInput <&> toHangmanWord
    case word of
        Right (HangmanWord word) -> runGame $ initGameState (HangmanWord word)
-       Left error -> putStrLn error >> start
+       Left error               -> putStrLn error >> start
 
 
 
