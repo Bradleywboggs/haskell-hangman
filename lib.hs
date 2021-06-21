@@ -1,21 +1,21 @@
 module Lib where
 --TODO: Only expose smart constructors for HangmanWord and inputToGuess not their Data constructors
+--TODO: add strictness to datatypes where useful
 
 import Data.Char  (toLower, isLetter)
 import Data.List (elemIndices, foldl')
 import Data.Foldable ( Foldable(toList) ) 
+
 import Data.Sequence as S ( fromList, mapWithIndex )
 
 
 
 data Input = GuessInput | WordInput 
-
 newtype HangmanWord =  HangmanWord String deriving (Eq, Show)
 
 
-
-toHangmanWord :: String -> Either String HangmanWord
-toHangmanWord word 
+inputToHangmanWord :: String -> Either String HangmanWord
+inputToHangmanWord word 
    | word == []                      = Left "You didn't enter a word. Please try again."
    | not $ all isLetter word         = Left "Only letters are valid entries. Please try again."
    | otherwise                       = Right $ HangmanWord $ toLower <$> word
