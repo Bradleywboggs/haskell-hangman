@@ -88,6 +88,4 @@ runGame gamestate = do
 
 
 main :: IO ()
-main = do
-   welcomeView
-   start
+main = welcomeView >> start

@@ -1,13 +1,18 @@
 module Lib where
+--TODO: Only expose smart constructors for HangmanWord and inputToGuess not their Data constructors
 
 import Data.Char  (toLower, isLetter)
 import Data.List (elemIndices, foldl')
 import Data.Foldable ( Foldable(toList) ) 
 import Data.Sequence as S ( fromList, mapWithIndex )
 
+
+
 data Input = GuessInput | WordInput 
 
 newtype HangmanWord =  HangmanWord String deriving (Eq, Show)
+
+
 
 toHangmanWord :: String -> Either String HangmanWord
 toHangmanWord word 
@@ -44,6 +49,10 @@ data GameState = GameState
       , blanks :: [Char]
       } deriving (Show, Eq)
 
+-- TODO: Refactor to us lenses to replace the verbose handling of GameState updates
+
+-- remainingGuessesL = lens remainingGuesses (\x gamestate -> gamestate{remainingGuesses = x}) 
+-- isWinnerL = lens isWinner (\x gamestate -> gamestate{isWinner = x})
 
 initGameState :: HangmanWord -> GameState 
 initGameState (HangmanWord word) = GameState 
