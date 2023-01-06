@@ -3,32 +3,11 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages:
-- completed:
-    hackage: process-1.6.9.0@sha256:372de796fea9d40e6d02269d5df466c9b8d641f145fad3c1add59db7baeea19e,2576
-    pantry-tree:
-      size: 1211
-      sha256: 9d21df864535dcc65e11fd108c4678fdadf2d53bb9ffd1fda142369c797f31c1
-  original:
-    hackage: process-1.6.9.0
-- completed:
-    hackage: lens-5.0.1@sha256:c97fbe43ae6fe21d73f1a023d776bb05cd492f0afd1b3c3ff43e246af91f6852,15544
-    pantry-tree:
-      size: 8291
-      sha256: 915f23967904b51276fbeb1181eb51b3d958f48273bb10de3914bea8184c0336
-  original:
-    hackage: lens-5.0.1
-- completed:
-    hackage: containers-0.6.2.1@sha256:bbc3d2d5eef59a5d26383fb4b727c968390f2b6e9bd413d29aa875175bb16f8b,2460
-    pantry-tree:
-      size: 2823
-      sha256: 5bb0af2da4e4cc5472a17063ecdbda8f1117e5f3509fcd600f2cbd7e2b760f49
-  original:
-    hackage: containers-0.6.2.1
+packages: []
 snapshots:
 - completed:
-    size: 585393
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/0.yaml
-    sha256: c632012da648385b9fa3c29f4e0afd56ead299f1c5528ee789058be410e883c0
+    sha256: 428ec8d5ce932190d3cbe266b9eb3c175cd81e984babf876b64019e2cbe4ea68
+    size: 590100
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml
   original:
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/0.yaml
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml

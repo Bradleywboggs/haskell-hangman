@@ -38,6 +38,7 @@ inputToGuess (l:ls)
       | all isLetter (l:ls) = WordGuess $ toLower <$> (l:ls) 
       | otherwise           = InvalidGuess
 
+data GameStatus = Won | Lost | Pending
 
 data GameState = GameState
       { remainingGuesses :: Integer
@@ -48,6 +49,12 @@ data GameState = GameState
       , hangmanword :: HangmanWord 
       , blanks :: [Char]
       } deriving (Show, Eq)
+
+
+getGameStatus :: GameState -> GameStatus
+getGameStatus gs | isWinner gs == True      = Won
+getGameStatus gs | remainingGuesses gs == 0 = Lost
+getGameStatus                               = Pending
 
 -- TODO: Refactor to us lenses to replace the verbose handling of GameState updates
 

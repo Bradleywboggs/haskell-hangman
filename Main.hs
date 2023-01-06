@@ -21,14 +21,14 @@ playAgainPrompt = do
         _   -> putStrLn "Goodbye."
 
 gameView :: GameState -> IO ()
-gameView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
-    putStrLn msg
+gameView gamestate = do -- (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
+    putStrLn $ message gamestate
     putStrLn ""
-    putStrLn $ "You have " ++ show remainingGuesses ++ " guesses remaining."
+    putStrLn $ "You have " ++ show (remainingGuesses gamestate) ++ " guesses remaining."
     putStrLn ""
-    putStrLn $ "Wrong Guesses: " ++ wrongLetters
+    putStrLn $ "Wrong Guesses: " ++ (wrongLetters gamestate)
     putStrLn ""
-    putStrLn $ foldl (\accum x -> accum ++ "    " ++ x) blanks []
+    putStrLn $ foldl (\accum x -> accum ++ "    " ++ x) (blanks gamestate) []
     putStrLn ""
 
 
@@ -73,16 +73,10 @@ start = do
 runGame :: GameState -> IO ()
 runGame gamestate = do
     clearScreen
-    case gamestate of
-        -- Base case 1: Winner (isWinner == True)
-        GameState _ True _ _ _ _ _ ->  winnerView gamestate
-        -- Base case 2: Loser (guesses == 0)
-        GameState 0 _ _ _ _ _ _    ->  loserView  gamestate
-        -- Otherwise, display the current gamestate,
-        -- get a guess,
-        -- update state from the guess,
-        -- and then recurse till we hit a base case
-        _                          ->  do
+    case getGameStatus gamestate of
+        Won     ->  winnerView gamestate    
+        Lost    ->  loserView  gamestate
+        Pending ->  do
             guess <- gameView gamestate >> getGameInput GuessInput <&> inputToGuess
             runGame $ updateGameState guess gamestate
 
