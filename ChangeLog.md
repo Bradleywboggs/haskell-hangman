@@ -1,4 +1,4 @@
-# Revision history for hangman-hangman-hangman
+# Revision history for haskell-hangman
 
 ## 0.1.0.0 -- YYYY-mm-dd
 

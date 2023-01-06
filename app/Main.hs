@@ -3,7 +3,7 @@
 module Main where
 import           Data.Functor
 import           Lib
-import           System.Environment
+import Data.List (intersperse)
 import qualified System.Process     as SP
 
 clearScreen :: IO ()
@@ -21,38 +21,29 @@ playAgainPrompt = do
         _   -> putStrLn "Goodbye."
 
 gameView :: GameState -> IO ()
-gameView gamestate = do -- (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
-    putStrLn $ message gamestate
-    putStrLn ""
-    putStrLn $ "You have " ++ show (remainingGuesses gamestate) ++ " guesses remaining."
-    putStrLn ""
-    putStrLn $ "Wrong Guesses: " ++ (wrongLetters gamestate)
-    putStrLn ""
-    putStrLn $ foldl (\accum x -> accum ++ "    " ++ x) (blanks gamestate) []
-    putStrLn ""
-
+gameView gs = mapM_ putStrLn $ 
+    intersperse "" [ message gs
+                   , "You have " ++ show (remainingGuesses gs) ++ " guesses remaining."
+                   , "Wrong Guesses: " ++ (wrongLetters gs)
+                   , foldl (\accum x -> accum ++ "    " ++ x) (blanks gs) []
+                   ]
 
 winnerView :: GameState -> IO ()
-winnerView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks) = do
-    putStrLn "Winner!"
-    putStrLn ""
-    putStrLn $ "The word was " ++ wrd ++ "."
+winnerView gs = do
+    mapM_ putStrLn $ intersperse "" ["Winner!", "The word was " ++ (unword $ hangmanword gs) ++ "."]
     playAgainPrompt
 
 
 loserView :: GameState -> IO ()
-loserView (GameState remainingGuesses isWinner wrongLetters guessedLetters msg (HangmanWord wrd) blanks)  = do
-    putStrLn $ "The word was " ++ wrd ++ "."
-    putStrLn "You Lost. someone call the wambulance."
-    playAgainPrompt
+loserView gs = do
+    mapM_ putStrLn [ "The word was " ++ (unword $ hangmanword gs) ++ "."
+                    , "You Lost"
+                    ]
+    playAgainPrompt                
 
 
 welcomeView :: IO ()
-welcomeView = do
-    clearScreen
-    putStrLn "Welcome to Hangman!"
-    putStrLn ""
-    putStrLn ""
+welcomeView = clearScreen >> putStrLn "Welcome to Hangman!\n\n"
 
 
 getGameInput :: Input -> IO String
@@ -63,10 +54,10 @@ getGameInput inputType =
 
 start :: IO ()
 start = do
-   word <- getGameInput WordInput <&> inputToHangmanWord
-   case word of
+   wrd <- getGameInput WordInput <&> inputToHangmanWord
+   case wrd of
        Right (HangmanWord word) -> runGame $ initGameState (HangmanWord word)
-       Left error               -> putStrLn error >> start
+       Left err                 -> putStrLn err >> start
 
 
 
